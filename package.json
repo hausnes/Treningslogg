@@ -1,0 +1,26 @@
+{
+  "name": "treningslogg",
+  "version": "1.0.0",
+  "description": "Lage ein app som kan lagre treningsøkter og diverse statestikk om treningsøkten.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Malarol/Treningslogg.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Malarol/Treningslogg/issues"
+  },
+  "homepage": "https://github.com/Malarol/Treningslogg#readme",
+  "dependencies": {
+    "better-sqlite3": "^12.8.0",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "node": "^25.8.1"
+  }
+}
