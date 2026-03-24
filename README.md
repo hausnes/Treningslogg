@@ -16,3 +16,6 @@ Også begynt på app.js, her har eg lagt ein sti til øvelser, bruker og økt ti
 Idemyldring funksjonalitet:
 Brukeren skal kunne legge til økter og øvelser. Bruker skal sjå navnet sitt på forskjermen. Bruker skal kunne sjå tidlegare øvelsar for å sjå progresjon. 
 Begynte på eit login system med forms, blei ikkje ferdig pga serverfeil. Uansett strategien er å la brukeren velge om han skal logge på eller registrere ved hjelp av radioknapper. Om bruker logger inn, tar eg passord fra databasen og sammenligner med det brukerene som allerede ligger inne.
+
+### 24/3
+Jobba videre på innloggingsystemet. Fekk til å registrere bruker til database, og sjekke om brukeren allereie eksisterte for å logge inn. Videre sendte eg de til ein indexfil som eg skal begynne på. Det første eg ville gjøre var å innerTexte brukernavnet til brukeren, men det blei komplikasjoner rundt korleis dette skulle fungere med å finne brukernavnet. Jo bjørnar hinta på at eg skulle bruke express-session som eg begynner på neste time.

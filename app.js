@@ -52,24 +52,31 @@ app.post('/api/registrer_ovelse', express.json(), (req, res) => {
     res.status(201).json({ message: 'Fjellturen er registrert!' });
 });
 
+//Registrere ny bruker
+app.post('/api/signup', express.json(), (req, res) => {
+    // Henter ut data fra request body (det som klienten har sendt inn)
+    const { brukernavn, passord} = req.body;
+
+    // Sjekk om personen eksisterer
+    const person = db.prepare('SELECT * FROM Person WHERE brukernavn = ?').get(brukernavn);
+    if (!person) return res.status(404).json({ error: 'Person ikke funnet' });
+
+    // Registrerer ny bruker
+    db.prepare('INSERT INTO Person (brukernavn, passord) VALUES (?, ?)').run(brukernavn, passord);
+
+    res.status(201).json({ message: 'Bruker registrert er registrert!' });
+});
+
 // Åpner en viss port på serveren, og starter serveren
 app.listen(PORT, () => {
     console.log(`Server kjører på http://localhost:${PORT}`);
 });
 
 
+//express - session, for å kunne fikse innloggingsystemet
 
 
 
 
 
 
-
-
-    // const response = await fetch('/api/registrer_tur', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({ brukernavn, fjellnavn, tidspunkt, varighet, beskrivelse })// merk 
-    // });
