@@ -1,8 +1,12 @@
 function utformHTML() {
-    const brukernavn = localStorage.getItem("brukernavn")
-    document.getElementById("Navn").innerText = "Velkommen" + brukernavn;
+    const brukernavn = localStorage.getItem("brukernavn");
+
+    if (!brukernavn) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    document.getElementById("Navn").innerText = "Velkommen " + brukernavn;
 }
 
-utformHTML()
-
-console.log(localStorage.getItem("brukernavn"))
+utformHTML();

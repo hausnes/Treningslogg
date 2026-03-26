@@ -12,9 +12,19 @@ app.use(cors());
 app.use(express.static('public'));
 
 app.post("/api/registrer_bruker", express.json(), (req, res) => {
-    const {brukernavn, passord} = req.body
+    const {brukernavn, passord} = req.body;
+    const eksisterer = db.prepare("SELECT * FROM Person WHERE brukernavn = ?").get(brukernavn);
+    if (eksisterer) return res.status(409).json({ error: 'Brukernavn er allerede i bruk' });
     db.prepare("INSERT INTO Person (brukernavn, passord) VALUES(?,?)").run(brukernavn, passord);
+    res.status(201).json({ message: 'Bruker registrert!' });
 })
+
+app.post('/api/login', express.json(), (req, res) => {
+    const { brukernavn, passord } = req.body;
+    const person = db.prepare('SELECT * FROM Person WHERE brukernavn = ? AND passord = ?').get(brukernavn, passord);
+    if (!person) return res.status(401).json({ error: 'Feil brukernavn eller passord' });
+    res.json({ brukernavn: person.brukernavn });
+});
 
 app.get('/api/ovelser', (req, res) => {
     const rows = db.prepare('SELECT navn, muskel FROM Ovelse').all();
@@ -27,7 +37,7 @@ app.get('/api/bruker', (req, res) => {
     res.json(rows);
 })
 
-app.get('api/oekt/:brukernavn', (req, res) => {
+app.get('/api/oekt/:brukernavn', (req, res) => {
     const brukernavn = req.params.brukernavn;
     if (!brukernavn) return res.status(400).json({ error: 'Mangler brukernavn' });
 
@@ -35,7 +45,6 @@ app.get('api/oekt/:brukernavn', (req, res) => {
         SELECT Oekt.oekt_id
         FROM Person
         JOIN Oekt ON Person.brukernavn = Oekt.brukernavn
-        JOIN Oekt ON oekt.oekt.id = Oekt.oekt_id
         WHERE Person.brukernavn = ?
     `).all(brukernavn);
 
